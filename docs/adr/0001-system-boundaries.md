@@ -1,28 +1,22 @@
 # ADR 0001: System boundaries and implementation approach
 
-Status: proposed / decision not yet made.
+Status: proposed.
 
 ## Context
-Process live attendance updates from fictional workshops. Events can arrive twice, late or out of order. Use SQS and DynamoDB to maintain a reliable view of session activity.
+A near-real-time processing service for session activity and attendance events. The design accounts for duplicate deliveries, concurrent workers, late updates and recovery from failed batches using Amazon SQS and DynamoDB.
 
-## Decision questions
+## Questions
 - Standard versus FIFO and the business ordering requirement
 - Atomic deduplication plus state mutation
 - Idempotency-key lifetime and redrive limits
 
-## Options
-1. Small local implementation with synthetic adapters.
-2. Integrated lab with real dependencies in a disposable environment.
-3. A justified alternative to be supplied during design.
+## Alternatives
+- A local implementation with synthetic external adapters.
+- An integrated deployment with real dependencies in an isolated environment.
+- A smaller implementation that preserves the core invariant.
 
 ## Decision
-Pending. Start by evaluating the smallest approach that can demonstrate the core invariant.
+Pending. Record the selected option, rejected alternatives and rationale before implementing external adapters.
 
-## Consequences to assess
-Correctness, complexity, cost, recovery, trust boundaries, portability and maintenance burden.
-
-## Evidence needed
-A failure experiment, a working implementation slice and a comparison of the alternatives.
-
-## Revisit when
-Document a concrete load, team, correctness or operational constraint that invalidates the selected approach.
+## Consequences
+Assess correctness, operational complexity, cost, security boundaries, recovery and maintenance. Define the concrete constraint that would justify revisiting the decision.
